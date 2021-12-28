@@ -1,3 +1,5 @@
+const API = require('./api');
+
 function calculateTotalWeight(data) {
   const totals = [];
 
