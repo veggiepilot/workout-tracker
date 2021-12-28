@@ -12,13 +12,15 @@ app.use(express.static("public"));
 
 mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
-    useFindAndModify: false
+    useFindAndModify: false,
+    useUnifiedTopology: true
 });
 mongoose.connection.once('open', () => {
     console.log('connect to database')
 });
 
-// app.use(require());
+// Routes
+app.use(require("./routes/api.js"));
 
 
 app.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));

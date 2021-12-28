@@ -1,6 +1,6 @@
-const API = require('./api');
-
 init();
+
+const API = require('./api');
 
 async function init() {
   if (location.search.split("=")[1] === undefined) {
