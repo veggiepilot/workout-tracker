@@ -1,10 +1,14 @@
+require('dotenv').config()
 const mongoose = require('mongoose');
 const db = require('../models');
 
-mongoose.connect('mongodb://localhost/workout', {
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useFindAndModify: false,
   useUnifiedTopology: true,
+});
+mongoose.connection.once('open', () => {
+  console.log('connect to database from seeder')
 });
 
 const workoutSeed = [
