@@ -12,4 +12,22 @@ router.get("/api/workouts", (req, res) => {
         });
 });
 
+router.put("/api/workouts/:id", (req, res) => {
+    const _id = req.params;
+    const exercise = req.body;
+
+    try{
+        const result = Workout.updateOne(
+            {_id },
+            { $push: {exercises: exercise} }
+        );
+        res.send(result);
+    } catch(err) {
+        console.log(err);
+    }
+    
+
+    
+});
+
 module.exports = router;

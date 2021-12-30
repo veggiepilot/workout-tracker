@@ -98,21 +98,21 @@ function validateInputs() {
 async function handleFormSubmit(event) {
   event.preventDefault();
 
-  let workoutData = {};
+  let workoutData = {type: 'cardio', name: 'jogging', distance: 5, duration: 109};
 
-  if (workoutType === "cardio") {
-    workoutData.type = "cardio";
-    workoutData.name = cardioNameInput.value.trim();
-    workoutData.distance = Number(distanceInput.value.trim());
-    workoutData.duration = Number(durationInput.value.trim());
-  } else if (workoutType === "resistance") {
-    workoutData.type = "resistance";
-    workoutData.name = nameInput.value.trim();
-    workoutData.weight = Number(weightInput.value.trim());
-    workoutData.sets = Number(setsInput.value.trim());
-    workoutData.reps = Number(repsInput.value.trim());
-    workoutData.duration = Number(resistanceDurationInput.value.trim());
-  }
+  // if (workoutType === "cardio") {
+  //   workoutData.type = "cardio";
+  //   workoutData.name = cardioNameInput.value.trim();
+  //   workoutData.distance = Number(distanceInput.value.trim());
+  //   workoutData.duration = Number(durationInput.value.trim());
+  // } else if (workoutType === "resistance") {
+  //   workoutData.type = "resistance";
+  //   workoutData.name = nameInput.value.trim();
+  //   workoutData.weight = Number(weightInput.value.trim());
+  //   workoutData.sets = Number(setsInput.value.trim());
+  //   workoutData.reps = Number(repsInput.value.trim());
+  //   workoutData.duration = Number(resistanceDurationInput.value.trim());
+  // }
 
   await API.addExercise(workoutData);
   clearInputs();
@@ -144,6 +144,7 @@ if (completeButton) {
   completeButton.addEventListener("click", function (event) {
     shouldNavigateAway = true;
     handleFormSubmit(event);
+    
   });
 }
 if (addButton) {
