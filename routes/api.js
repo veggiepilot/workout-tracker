@@ -103,4 +103,14 @@ router.post("/api/workouts", async (req, res) => {
 
 });
 
+router.get("/api/workouts/range", (req, res) => {
+    Workout.find().limit(7).sort({ $natural: -1})
+        .then(workouts => {
+            res.json(workouts);
+        })
+        .catch(err => {
+            res.status(400).json(err)
+        })
+});
+
 module.exports = router;

@@ -115,15 +115,10 @@ async function handleFormSubmit(event) {
 
   const id = location.search.split("=")[1];
 
-  // await API.addExercise(workoutData);
-  //     clearInputs();
-  //     toast.classList.add("success");
-
-
   if(!id){
     initExercise(workoutData);
+    clearInputs();
   } else {
-    console.log(id);
     await API.addExercise(workoutData);
     clearInputs();
     toast.classList.add("success");
