@@ -17,20 +17,18 @@ const newWorkout = document.querySelector(".new-workout")
 let workoutType = null;
 let shouldNavigateAway = false;
 
-async function initExercise() {
+async function initExercise(data) {
   let workout;
 
-  if (location.search.split("=")[1] === undefined) {
-    workout = await API.createWorkout()
-    console.log(workout)
+  if (!(location.search.split("=")[1])) {
+    workout = await API.createWorkout(data);
+    toast.classList.add("success");
   }
   if (workout) {
     location.search = "?id=" + workout._id;
   }
 
 }
-
-initExercise();
 
 function handleWorkoutTypeChange(event) {
   workoutType = event.target.value;
@@ -98,25 +96,38 @@ function validateInputs() {
 async function handleFormSubmit(event) {
   event.preventDefault();
 
-  let workoutData = {type: 'cardio', name: 'jogging', distance: 5, duration: 109};
+  let workoutData = {};
 
-  // if (workoutType === "cardio") {
-  //   workoutData.type = "cardio";
-  //   workoutData.name = cardioNameInput.value.trim();
-  //   workoutData.distance = Number(distanceInput.value.trim());
-  //   workoutData.duration = Number(durationInput.value.trim());
-  // } else if (workoutType === "resistance") {
-  //   workoutData.type = "resistance";
-  //   workoutData.name = nameInput.value.trim();
-  //   workoutData.weight = Number(weightInput.value.trim());
-  //   workoutData.sets = Number(setsInput.value.trim());
-  //   workoutData.reps = Number(repsInput.value.trim());
-  //   workoutData.duration = Number(resistanceDurationInput.value.trim());
-  // }
+  if (workoutType === "cardio") {
+    workoutData.type = "cardio";
+    workoutData.name = cardioNameInput.value.trim();
+    workoutData.distance = Number(distanceInput.value.trim());
+    workoutData.duration = Number(durationInput.value.trim());
+  } else if (workoutType === "resistance") {
+    workoutData.type = "resistance";
+    workoutData.name = nameInput.value.trim();
+    workoutData.weight = Number(weightInput.value.trim());
+    workoutData.sets = Number(setsInput.value.trim());
+    workoutData.reps = Number(repsInput.value.trim());
+    workoutData.duration = Number(resistanceDurationInput.value.trim());
+    
+  }
 
-  await API.addExercise(workoutData);
-  clearInputs();
-  toast.classList.add("success");
+  const id = location.search.split("=")[1];
+
+  // await API.addExercise(workoutData);
+  //     clearInputs();
+  //     toast.classList.add("success");
+
+
+  if(!id){
+    initExercise(workoutData);
+  } else {
+    console.log(id);
+    await API.addExercise(workoutData);
+    clearInputs();
+    toast.classList.add("success");
+  }  
 }
 
 function handleToastAnimationEnd() {
