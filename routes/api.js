@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const Workout = require("../models/workout");
 
-router.get("/api/workouts/", async (req, res) => {
+router.get("/api/workouts", (req, res) => {
 
     Workout.aggregate(
         [
@@ -131,15 +131,6 @@ router.get("/api/workouts/range", (req, res) => {
             console.log(err);
             res.status(400).json(err)
         });
-
-
-    // Workout.find().limit(7).sort({ $natural: -1})
-    //     .then(workouts => {
-    //         res.json(workouts);
-    //     })
-    //     .catch(err => {
-    //         res.status(400).json(err)
-    //     })
 });
 
 module.exports = router;
